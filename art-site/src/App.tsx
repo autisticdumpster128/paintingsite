@@ -1,17 +1,13 @@
-import { paintings, getStatus } from "./data/paintings";
+import { paintingList } from "./data/paintings";
 import "./App.css";
+import PaintingCard from "./components/PaintingCard";
 function App() {
   return (
     <main>
-
-      {paintings.map((painting) => (
-
-        <article key={painting.id}>
-          <h2>{painting.title}</h2>
-          <p>{painting.price}</p>
-          <p>{getStatus(painting)}</p>
-        </article>))}
+      {paintingList.map((item) => (
+        <PaintingCard key={item.id} art={item} />
+      ))}
     </main>
-  );
+  )
 }
 export default App;
