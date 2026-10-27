@@ -3,7 +3,7 @@ import "./App.css";
 import PaintingCard from "./components/PaintingCard";
 function App() {
   return (
-    <main>
+    <main className="gallery">
       {paintingList.map((item) => (
         <PaintingCard key={item.id} art={item} />
       ))}

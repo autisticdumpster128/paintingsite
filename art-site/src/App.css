@@ -1,5 +1,55 @@
-article {
-  border: 1px solid gray;
-  padding: 16px;
-  margin: 12px;
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+  padding: 40px;
+}
+.card-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  object-position: bottom;
+
+  padding: 24px;
+}
+
+.card-title {
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.card-text {
+  font-size: 12px;
+  color: #777;
+}
+/*----------------------------*/
+
+@media (max-width: 1400px) {
+  .gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
+@media (max-width: 1100px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+@media (max-width: 800px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 500px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
 }

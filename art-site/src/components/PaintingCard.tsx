@@ -1,11 +1,12 @@
-import { getStatus, type PaintingType} from "../data/paintings";
+import { getStatus, type PaintingType, formatPrice } from "../data/paintings";
 
-function PaintingCard(props:{art: PaintingType}){
-    return(
-        <article>
-            <h2>{props.art.title}</h2>
-            <p>{props.art.price}</p>
-            <p>{getStatus(props.art)}</p>
+function PaintingCard(props: { art: PaintingType }) {
+    return (
+        <article className="card">
+            <img className="card-image" src={props.art.image} alt={props.art.title} />
+            <h2 className="card-title">{props.art.title}</h2>
+            <p className="card-text">{getStatus(props.art)}</p>
+            <p className="card-text">{formatPrice(props.art.price)}</p>
         </article>
     );
 }
