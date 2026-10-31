@@ -3,14 +3,16 @@ import "./App.css";
 import PaintingCard from "./components/PaintingCard";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { getFill } from "./data/paintings";
 
 
 function App() {
+const sortedList=[...paintingList].sort((a,b)=> getFill(b)-getFill(a))
   return (
     <>
       <Header />
       <main className="gallery">
-        {paintingList.map((item) => (
+        {sortedList.map((item) => (
           <PaintingCard key={item.id} art={item} />
         ))}
       </main>
