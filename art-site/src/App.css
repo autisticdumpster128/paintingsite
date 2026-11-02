@@ -85,3 +85,86 @@
 .footer button:hover {
   color: #111;
 }
+/* ---------- Попап ---------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.6);
+  animation: fade-in 0.25s ease;
+}
+
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  max-width: 1300px;
+  max-height: 94vh;
+  padding: 64px 48px 48px;
+  overflow-y: auto;
+  background: #fff;
+}
+
+.modal-image {
+  display: block;
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+.modal-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.modal-title {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.modal-price {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.modal-meta {
+  font-size: 12px;
+  color: #888;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  font-size: 28px;
+  transition: opacity 0.2s;
+}
+
+.modal-close:hover {
+  opacity: 0.6;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (max-width: 800px) {
+  .modal {
+    padding: 56px 20px 24px;
+  }
+}

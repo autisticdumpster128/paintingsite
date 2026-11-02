@@ -52,3 +52,8 @@ export function isWide(painting: PaintingType):boolean{
         return false;  
     }
 };
+
+export function formatSize(painting:PaintingType):string{
+    return `${painting.width} x ${painting.height}cm`
+
+}
