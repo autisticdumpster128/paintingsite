@@ -1,16 +1,13 @@
 import { type PaintingType, getStatus, formatPrice, formatSize } from "../data/paintings";
-import { PiX } from "react-icons/pi";
+import  Modal from "./Modal"
+
 
 function PaintingModal(props: { painting: PaintingType; onClose: () => void }) {
   return (
-    <div className="modal-backdrop" onClick={props.onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={props.onClose} aria-label="Close">
-          <PiX />
-        </button>
 
-        <img
-          className="modal-image"
+   <Modal onClose={props.onClose}>
+ <img
+          className={props.painting.sold ? "modal-image modal-image--sold" : "modal-image"}
           src={props.painting.image}
           alt={props.painting.title}
         />
@@ -22,8 +19,8 @@ function PaintingModal(props: { painting: PaintingType; onClose: () => void }) {
             {formatSize(props.painting)} · {getStatus(props.painting)}
           </p>
         </div>
-      </div>
-    </div>
+      
+    </Modal>
   );
 }
 
