@@ -1,4 +1,4 @@
-import { paintingList , type PaintingType} from "./data/paintings";
+import { paintingList, type PaintingType } from "./data/paintings";
 import "./App.css";
 import PaintingCard from "./components/PaintingCard";
 import Header from "./components/Header";
@@ -8,26 +8,60 @@ import { useState } from "react";
 import PaintingModal from "./components/PaintingModal";
 import Modal from "./components/Modal";
 import { type PageKey, pages } from "./data/pages";
+import CartModal from "./components/CartModal";
 
 
 function App() {
 
-const sortedList=[...paintingList].sort((a,b)=> getFill(b)-getFill(a))
-const [selected, setSelected] = useState<PaintingType | null>(null);
-const [page,setPage]=useState <PageKey | null>(null);
+  const sortedList = [...paintingList].sort((a, b) => getFill(b) - getFill(a))
+  const [selected, setSelected] = useState<PaintingType | null>(null);
+  const [page, setPage] = useState<PageKey | null>(null);
+  const [cart, setCart] = useState<PaintingType[]>([])
+  const [cartOpen, setCartOpen] = useState(false)
+
+  function addToCart(painting: PaintingType) {
+    if (painting.sold) {
+      return;
+    }
+    if (cart.some((item) => item.id === painting.id)) {
+      return;
+    }
+
+    setCart([...cart, painting]);
+  }
+
+  function removeFromCart(painting:PaintingType){
+    setCart(cart.filter((item)=> item.id!== painting.id))
+  }
 
   return (
     <>
-      <Header />
+      <Header
+        cartCount={cart.length}
+        onCartClick={()=>{setCartOpen(true)}} />
+
+      {cartOpen && (
+        <CartModal
+          items={cart}
+          onClose={ ()=> setCartOpen(false)}
+          onRemove={removeFromCart}
+          onOrdered={() => setCart([])}
+        />
+      )}
+
       {selected && (
-        <PaintingModal painting={selected} onClose={()=> setSelected(null)}/>
+        <PaintingModal
+          painting={selected}
+          onClose={() => setSelected(null)}
+          onAdd={addToCart}
+          inCart={cart.some((item) => item.id === selected.id)} />
       )}
       <main className="gallery">
         {sortedList.map((item) => (
-          <PaintingCard key={item.id} art={item} onClick={()=>setSelected(item)} />
+          <PaintingCard key={item.id} art={item} onClick={() => setSelected(item)} />
         ))}
       </main>
-      <Footer onOpen={setPage}/>
+      <Footer onOpen={setPage} />
 
 
       {page && (
@@ -39,7 +73,7 @@ const [page,setPage]=useState <PageKey | null>(null);
         </Modal>
       )}
     </>
-    
+
   )
 }
 export default App;
