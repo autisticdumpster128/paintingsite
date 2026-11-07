@@ -1,14 +1,22 @@
-import { type PageKey } from "../data/pages"
+import { type PageKey } from "../data/texts";
+import { useSettings } from "../Settings";
 
-function Footer(props: { onOpen: (page: PageKey ) => void }) {
+const YEAR = new Date().getFullYear();
 
-    return(
-        <footer className="footer">
-            <button onClick={() => props.onOpen("about")}>ABOUT ME</button>
-            <button onClick={() => props.onOpen("info")}>INFO</button>
-            <button onClick={() => props.onOpen("contact")}>CONTACT</button>
-            <button onClick={() => props.onOpen("cookies")}>COOKIES</button>
-        </footer>
-    )
+function Footer(props: { onOpen: (page: PageKey) => void; onContact: () => void }) {
+  const { t } = useSettings();
+
+  return (
+    <footer className="footer">
+      <nav className="footer-links">
+        <button className="glass-pill" onClick={() => props.onOpen("about")}>{t.footerAbout}</button>
+        <button className="glass-pill" onClick={() => props.onOpen("info")}>{t.footerInfo}</button>
+        <button className="glass-pill" onClick={props.onContact}>{t.contact}</button>
+        <button className="glass-pill" onClick={() => props.onOpen("privacy")}>{t.footerPrivacy}</button>
+      </nav>
+      <p className="copyright">© {YEAR} Ostap Kucherenko</p>
+    </footer>
+  );
 }
-export default Footer
+
+export default Footer;

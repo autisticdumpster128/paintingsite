@@ -1,25 +1,30 @@
 import { type PaintingType, getRatio } from "../data/paintings";
+import { useSettings } from "../Settings";
 
-const ROW_HEIGHT = 450;
+// Базова висота ряду задається в App.css змінною --row-height
+// (на телефоні вона інша). Більше число = більші картини, менше в ряду.
 
-function PaintingCard(props: { art: PaintingType, onClick:()=>void} ) {
+function PaintingCard(props: { art: PaintingType; onClick: () => void }) {
+  const { t } = useSettings();
   const ratio = getRatio(props.art);
 
   return (
     <article
-      className={props.art.sold? "card card--sold": "card"}
+      className="card"
       onClick={props.onClick}
-      style={{ flexGrow: ratio, flexBasis: ratio * ROW_HEIGHT }}
+      style={{ flexGrow: ratio, flexBasis: `calc(${ratio} * var(--row-height))` }}
     >
-        <div className="card-frame">
-      <img
-        className="card-image"
-        style={{ aspectRatio: ratio }}
-        src={props.art.image}
-        alt={props.art.title}
-      />
+      <div className="card-frame">
+        <img
+          className="card-image"
+          style={{ aspectRatio: ratio }}
+          src={props.art.images[0]}
+          alt={props.art.title}
+          loading="lazy"
+        />
       </div>
       <h2 className="card-title">{props.art.title}</h2>
+      {!props.art.available && <p className="card-status">{t.unavailable}</p>}
     </article>
   );
 }
