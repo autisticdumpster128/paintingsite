@@ -1,14 +1,13 @@
 
 /* Кольори і розміри в одному місці — змінюєш тут, міняється всюди */
 :root {
+  --bg: #f4f2ed; /* «згашений» білий: теплий, ближче до слонової кістки */
   --ink: #141414;
   --muted: #8a8a8a;
   --line: #e4e2df;
   --paper: #fbfaf8;
   --accent: #c8372d;
   --radius: 28px;
-  --glass: rgba(255, 255, 255, 0.82); /* білий з невеликою прозорістю */
-  --glass-strong: rgba(251, 250, 248, 0.94);
   --row-height: 360px;
 }
 
@@ -19,14 +18,13 @@
 }
 
 html {
-  background: #3a1512; /* темно-червоний, поки не завантажилось відео */
+  background: var(--bg);
 }
 
 body {
   color: var(--ink);
-  font-family: "Inter Variable", "Inter", system-ui, sans-serif;
-  font-size: 15px;
-  letter-spacing: 0.01em;
+  font-family: "Manrope Variable", "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
 }
 

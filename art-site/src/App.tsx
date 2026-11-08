@@ -8,7 +8,6 @@ import PaintingCard from "./components/PaintingCard";
 import PaintingModal from "./components/PaintingModal";
 import ContactModal from "./components/ContactModal";
 import PageModal from "./components/PageModal";
-import Background from "./components/Background";
 
 function App() {
   // Яка картина відкрита в попапі (null = жодна)
@@ -31,8 +30,6 @@ function App() {
 
   return (
     <>
-      <Background />
-
       <Header onContactClick={() => openContact(null)} />
 
       <main className="panel">

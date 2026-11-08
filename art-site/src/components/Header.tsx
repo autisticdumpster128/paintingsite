@@ -8,10 +8,10 @@ function Header(props: { onContactClick: () => void }) {
   return (
     <header className="header">
       <div className="header-side">
-        <a href={links.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="circle-btn">
+        <a href={links.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="icon-link">
           <PiInstagramLogo />
         </a>
-        <a href={links.telegram} target="_blank" rel="noreferrer" aria-label="Telegram" className="circle-btn">
+        <a href={links.telegram} target="_blank" rel="noreferrer" aria-label="Telegram" className="icon-link">
           <PiTelegramLogo />
         </a>
       </div>
@@ -21,13 +21,13 @@ function Header(props: { onContactClick: () => void }) {
       <div className="header-side header-side--right">
         {/* Одна кнопка: показує поточну мову, клік — перемикає на іншу */}
         <button
-          className="circle-btn circle-btn--text"
+          className="nav-link"
           onClick={() => setLang(lang === "uk" ? "en" : "uk")}
           aria-label={lang === "uk" ? "Switch to English" : "Перемкнути на українську"}
         >
           {lang === "uk" ? "UA" : "EN"}
         </button>
-        <button className="circle-btn" onClick={props.onContactClick} aria-label={t.contact} title={t.contact}>
+        <button className="icon-link" onClick={props.onContactClick} aria-label={t.contact} title={t.contact}>
           <PiEnvelopeSimple />
         </button>
       </div>

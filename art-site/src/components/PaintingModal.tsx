@@ -48,7 +48,7 @@ function PaintingModal(props: {
   const p = props.painting;
 
   // Рядок з деталями: розмір · техніка · рік (тільки ті, що є)
-  const details = [hasSize(p) ? formatSize(p) : null, t.technique, p.year ?? null]
+  const details = [hasSize(p) ? formatSize(p) : null, t.technique, p.date ?? p.year ?? null]
     .filter((x) => x !== null)
     .join(" · ");
 

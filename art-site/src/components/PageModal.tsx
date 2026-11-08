@@ -6,29 +6,26 @@ import Modal from "./Modal";
 function PageModal(props: { page: PageKey; onClose: () => void }) {
   const { lang } = useSettings();
   const page = pages[props.page][lang];
+  const isAbout = props.page === "about";
+
+  const text = (
+    <div className="page-text">
+      <h2 className="modal-title">{page.title}</h2>
+      {page.paragraphs.map((p) => (
+        <p key={p}>{p}</p>
+      ))}
+    </div>
+  );
 
   return (
     <Modal onClose={props.onClose} className="modal--narrow">
       {/* Фото тільки для «Про мене» */}
-      {/* onError: якщо файлу public/about.jpg ще нема — просто ховаємо картинку */}
-      {props.page === "about" && (
-        <img
-          className="about-photo"
-          src="/about.jpg"
-          alt="Ostap Kucherenko"
-          onError={(e) => (e.currentTarget.style.display = "none")}
-        />
+      {isAbout && (
+        <figure className="about-photo">
+          <img src="/about.jpg" alt="Ostap Kucherenko" />
+        </figure>
       )}
-
-      <div className="modal-info">
-        <h2 className="modal-title">{page.title}</h2>
-      </div>
-
-      <div className="page-text">
-        {page.paragraphs.map((text) => (
-          <p key={text}>{text}</p>
-        ))}
-      </div>
+      {text}
     </Modal>
   );
 }

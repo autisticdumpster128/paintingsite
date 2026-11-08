@@ -10,7 +10,7 @@ export const texts = {
   uk: {
     contact: "Зв'язатися",
     unavailable: "unavailable",
-    technique: "акрил, олійна пастель",
+    technique: "акрил, олійна пастель на полотні",
     inquire: "Запитати про картину",
     prev: "Попереднє фото",
     next: "Наступне фото",
@@ -36,7 +36,7 @@ export const texts = {
   en: {
     contact: "Contact",
     unavailable: "unavailable",
-    technique: "acrylic, oil pastel",
+    technique: "acrylic, oil pastel on canvas",
     inquire: "Inquire",
     prev: "Previous photo",
     next: "Next photo",

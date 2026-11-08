@@ -9,10 +9,10 @@ function Footer(props: { onOpen: (page: PageKey) => void; onContact: () => void 
   return (
     <footer className="footer">
       <nav className="footer-links">
-        <button className="glass-pill" onClick={() => props.onOpen("about")}>{t.footerAbout}</button>
-        <button className="glass-pill" onClick={() => props.onOpen("info")}>{t.footerInfo}</button>
-        <button className="glass-pill" onClick={props.onContact}>{t.contact}</button>
-        <button className="glass-pill" onClick={() => props.onOpen("privacy")}>{t.footerPrivacy}</button>
+        <button className="nav-link" onClick={() => props.onOpen("about")}>{t.footerAbout}</button>
+        <button className="nav-link" onClick={() => props.onOpen("info")}>{t.footerInfo}</button>
+        <button className="nav-link" onClick={props.onContact}>{t.contact}</button>
+        <button className="nav-link" onClick={() => props.onOpen("privacy")}>{t.footerPrivacy}</button>
       </nav>
       <p className="copyright">© {YEAR} Ostap Kucherenko</p>
     </footer>

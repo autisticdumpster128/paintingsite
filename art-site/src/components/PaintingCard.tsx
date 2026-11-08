@@ -1,4 +1,4 @@
-import { type PaintingType, getRatio } from "../data/paintings";
+import { type PaintingType, getRatio, thumbOf } from "../data/paintings";
 import { useSettings } from "../Settings";
 
 // Базова висота ряду задається в App.css змінною --row-height
@@ -18,7 +18,7 @@ function PaintingCard(props: { art: PaintingType; onClick: () => void }) {
         <img
           className="card-image"
           style={{ aspectRatio: ratio }}
-          src={props.art.images[0]}
+          src={thumbOf(props.art.images[0])}
           alt={props.art.title}
           loading="lazy"
         />
