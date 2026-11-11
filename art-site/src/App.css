@@ -322,16 +322,38 @@
 
 .viewer {
   position: relative;
-  display: flex;
-  justify-content: center;
   width: 100%;
+  /* висота фото: стільки, щоб під ним вмістились назва, ціна і кнопка — без прокрутки попапу */
+  --viewer-h: min(60vh, calc(94vh - 380px));
+}
+
+/* Стрічка: всі фото в один ряд, гортається вбік; scroll-snap «доводить» до фото */
+.viewer-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* сховати смугу прокрутки */
+  overscroll-behavior-x: contain;
+}
+
+.viewer-track::-webkit-scrollbar {
+  display: none;
+}
+
+.viewer-slide {
+  flex: 0 0 100%;
+  height: var(--viewer-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  scroll-snap-stop: always; /* одним свайпом — рівно на одне фото */
 }
 
 .viewer-image {
   max-width: 100%;
-  max-height: 62vh;
+  max-height: 100%;
   object-fit: contain;
-  animation: fade-in 0.3s ease;
 }
 
 .viewer-arrow {
@@ -588,6 +610,10 @@
     padding: 52px 18px 28px;
   }
 
+  .viewer {
+    --viewer-h: calc(100dvh - 400px);
+  }
+
   .viewer-arrow {
     padding: 6px;
     font-size: 18px;
@@ -595,8 +621,7 @@
 }
 
 /* ============ Без ховерів на сенсорних екранах ============ */
-/* (hover: none) = пристрій без миші (телефон, планшет).
-   Там «ховер» спрацьовує після дотику і залипає — тому скасовуємо всі ефекти наведення. */
+
 @media (hover: none) {
   .card:hover .card-image {
     transform: none;

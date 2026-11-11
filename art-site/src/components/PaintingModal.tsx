@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
 import { type PaintingType, formatPrice, formatSize, hasSize, thumbOf } from "../data/paintings";
 import { useSettings } from "../Settings";
@@ -14,61 +14,56 @@ function PaintingModal(props: {
 
   // Номер фото, яке зараз показуємо (0 = перше)
   const [index, setIndex] = useState(0);
-  // Де палець торкнувся екрана (для свайпу на телефоні)
-  const [touchX, setTouchX] = useState<number | null>(null);
 
-  // % — остача від ділення: після останнього фото знову перше, і навпаки
-  function next() {
-    setIndex((i) => (i + 1) % images.length);
-  }
-  function prev() {
-    setIndex((i) => (i - 1 + images.length) % images.length);
+  // Стрічка з усіма фото поруч. На телефоні її гортають пальцем —
+  // браузер сам робить плавну прокрутку і «доводить» до найближчого фото (scroll-snap)
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  // Прокрутити стрічку до фото номер i (з плавною анімацією).
+  // % — остача від ділення: після останнього знову перше, і навпаки
+  function goTo(i: number) {
+    const track = trackRef.current;
+    if (!track) return;
+    const n = images.length;
+    const target = ((i % n) + n) % n;
+    track.scrollTo({ left: target * track.clientWidth, behavior: "smooth" });
   }
 
-  
-  // Спершу показуємо маленьку версію з галереї (вона вже завантажена — з'являється миттєво),
+ 
+  function onScroll() {
+    const track = trackRef.current;
+    if (!track) return;
+    setIndex(Math.round(track.scrollLeft / track.clientWidth));
+  }
+
+  // Перше фото: спершу маленька версія з галереї (вона вже завантажена — з'являється миттєво),
   // а щойно велика готова — тихо підміняємо її
-  const [shown, setShown] = useState(thumbOf(images[0]));
-
-  // Як тільки попап відкрився — завантажуємо всі фото цієї картини наперед
+  const [firstSrc, setFirstSrc] = useState(thumbOf(images[0]));
   useEffect(() => {
-    images.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, [images]);
-
-  useEffect(() => {
-    const src = images[index];
     const img = new Image();
-    img.src = src;
+    img.src = images[0];
     let cancelled = false;
     img.decode().catch(() => {}).then(() => {
-      if (!cancelled) setShown(src);
+      if (!cancelled) setFirstSrc(images[0]);
     });
     return () => {
       cancelled = true;
     };
-  }, [index, images]);
+  }, [images]);
 
   // Стрілки на клавіатурі ← →
+  // indexRef — щоб обробник клавіш завжди бачив актуальний номер фото
+  const indexRef = useRef(0);
+  indexRef.current = index;
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === "ArrowRight") setIndex((i) => (i + 1) % images.length);
-      if (e.key === "ArrowLeft") setIndex((i) => (i - 1 + images.length) % images.length);
+      if (e.key === "ArrowRight") goTo(indexRef.current + 1);
+      if (e.key === "ArrowLeft") goTo(indexRef.current - 1);
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images.length]);
-
-  // Свайп: запам'ятали X на початку, порівняли з X в кінці
-  function onTouchEnd(e: React.TouchEvent) {
-    if (touchX === null) return;
-    const diff = e.changedTouches[0].clientX - touchX;
-    if (diff < -40) next();
-    if (diff > 40) prev();
-    setTouchX(null);
-  }
 
   const many = images.length > 1;
   const p = props.painting;
@@ -80,19 +75,21 @@ function PaintingModal(props: {
 
   return (
     <Modal onClose={props.onClose} className="modal--painting">
-      <div
-        className="viewer"
-        onTouchStart={(e) => setTouchX(e.touches[0].clientX)}
-        onTouchEnd={onTouchEnd}
-      >
-        <img className="viewer-image" src={shown} alt={p.title} />
+      <div className="viewer">
+        <div className="viewer-track" ref={trackRef} onScroll={onScroll}>
+          {images.map((src, i) => (
+            <div className="viewer-slide" key={src}>
+              <img className="viewer-image" src={i === 0 ? firstSrc : src} alt={p.title} />
+            </div>
+          ))}
+        </div>
 
         {many && (
           <>
-            <button className="viewer-arrow viewer-arrow--left" onClick={prev} aria-label={t.prev}>
+            <button className="viewer-arrow viewer-arrow--left" onClick={() => goTo(index - 1)} aria-label={t.prev}>
               <PiCaretLeft />
             </button>
-            <button className="viewer-arrow viewer-arrow--right" onClick={next} aria-label={t.next}>
+            <button className="viewer-arrow viewer-arrow--right" onClick={() => goTo(index + 1)} aria-label={t.next}>
               <PiCaretRight />
             </button>
           </>
@@ -106,7 +103,7 @@ function PaintingModal(props: {
             <button
               key={src}
               className={i === index ? "dot is-active" : "dot"}
-              onClick={() => setIndex(i)}
+              onClick={() => goTo(i)}
               aria-label={`${i + 1} / ${images.length}`}
             />
           ))}
