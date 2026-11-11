@@ -22,7 +22,7 @@ function PageModal(props: { page: PageKey; onClose: () => void }) {
       {/* Фото тільки для «Про мене» */}
       {isAbout && (
         <figure className="about-photo">
-          <img src="/about.jpg" alt="Ostap Kucherenko" />
+          <img src="/about.webp" alt="Ostap Kucherenko" />
         </figure>
       )}
       {text}

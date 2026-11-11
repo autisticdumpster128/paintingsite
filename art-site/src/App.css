@@ -184,11 +184,14 @@
   background: #fff; /* біла смуга підвалу */
 }
 
+/* 4 однакові колонки, текст у кожній по центру — посилання стоять рівномірно,
+   а весь блок рівно посередині сторінки */
 .footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px 72px; /* ширші проміжки між посиланнями */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  width: min(760px, 100%);
+  gap: 12px;
 }
 
 .footer .nav-link {
@@ -571,8 +574,10 @@
     font-size: 12px;
   }
 
+  /* на телефоні — 2 × 2 */
   .footer-links {
-    gap: 10px 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 12px;
   }
 
   .modal-backdrop {
