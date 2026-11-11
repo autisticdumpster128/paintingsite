@@ -8,6 +8,6 @@ enjoy))
 -----------------------------------
 https://paintingsite-topaz.vercel.app/
 
-(this is a vercel link it`s temporary i will change it as soon as i buy myself a new domain)
+(this is a vercel link it`s only temporary i will change it as soon as i buy myself a new domain)
 
 -----------------------------------
