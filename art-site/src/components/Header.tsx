@@ -8,6 +8,8 @@ function Header(props: { onContactClick: () => void }) {
   return (
     <header className="header">
       <div className="header-side">
+        {/* Лого-аватарка (той самий малюнок, що й іконка у вкладці браузера) */}
+        <img className="logo" src="/logo.png" alt="Ostap Kucherenko" />
         <a href={links.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="icon-link">
           <PiInstagramLogo />
         </a>

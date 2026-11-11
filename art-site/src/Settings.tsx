@@ -40,7 +40,7 @@ function save(key: string, value: string) {
   try {
     localStorage.setItem(key, value);
   } catch {
-    // нічого страшного, просто не запам'ятаємо
+    
   }
 }
 
@@ -57,7 +57,7 @@ export function SettingsProvider(props: { children: ReactNode }) {
   const [currency, setCurrencyState] = useState<Currency>(() => {
     const saved = load("currency");
     if (saved === "UAH" || saved === "EUR") return saved;
-    return navigator.language.startsWith("uk") ? "UAH" : "EUR";
+    return "EUR"; // за замовчуванням — євро
   });
 
   function setLang(newLang: Lang) {

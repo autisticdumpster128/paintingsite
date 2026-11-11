@@ -35,6 +35,13 @@
   font-size: 24px;
 }
 
+/* Лого-аватарка в шапці: коло трохи більше за іконки, щоб було видно обличчя */
+.logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
 .nav-link {
   font-size: 11px;
   text-transform: uppercase;
@@ -545,14 +552,23 @@
     margin-top: 32px;
   }
 
+  /* Телефон: одна картина в ряд, всі однакової ширини (на весь екран),
+     висота — своя у кожної, залежно від пропорцій полотна */
   .gallery {
-    column-gap: 16px;
-    row-gap: 32px;
+    flex-direction: column;
+    row-gap: 48px;
+  }
+
+  /* !important — бо ширину в галереї задає style={...} прямо в PaintingCard,
+     а він сильніший за звичайний CSS */
+  .card {
+    flex: none !important;
+    width: 100%;
   }
 
   .card-title {
-    margin-top: 10px;
-    font-size: 11px;
+    margin-top: 12px;
+    font-size: 12px;
   }
 
   .footer-links {
