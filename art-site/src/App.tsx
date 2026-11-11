@@ -39,7 +39,7 @@ function App() {
     }
     function start() {
       loadNext();
-      loadNext(); // два потоки паралельно
+      loadNext(); 
     }
     if (document.readyState === "complete") start();
     else window.addEventListener("load", start, { once: true });
@@ -50,7 +50,7 @@ function App() {
   }, []);
 
   function openContact(painting: PaintingType | null) {
-    setSelected(null); // закриваємо попап картини, щоб не було два один на одному
+    setSelected(null); 
     setInquiry(painting);
     setContactOpen(true);
   }

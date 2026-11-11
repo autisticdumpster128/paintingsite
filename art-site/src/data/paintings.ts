@@ -7,13 +7,12 @@ export type PaintingType = {
   title: string;
   width: number; 
   height: number; 
-  year?: number; // знак ? означає «поле можна не писати»
+  year?: number;
   date?: string; // повна дата, якщо відома — показується в попапі замість року
   priceUAH?: number;
   priceEUR?: number; 
   available: boolean; 
-  images: string[];
-  // співвідношення сторін фото (ширина / висота), якщо розміру немає
+  images: string[]; 
   photoRatio?: number;
 };
 

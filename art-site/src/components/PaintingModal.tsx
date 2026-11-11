@@ -20,7 +20,6 @@ function PaintingModal(props: {
   const trackRef = useRef<HTMLDivElement>(null);
 
   // Прокрутити стрічку до фото номер i (з плавною анімацією).
-  // % — остача від ділення: після останнього знову перше, і навпаки
   function goTo(i: number) {
     const track = trackRef.current;
     if (!track) return;
@@ -37,7 +36,6 @@ function PaintingModal(props: {
   }
 
   // Перше фото: спершу маленька версія з галереї (вона вже завантажена — з'являється миттєво),
-  // а щойно велика готова — тихо підміняємо її
   const [firstSrc, setFirstSrc] = useState(thumbOf(images[0]));
   useEffect(() => {
     const img = new Image();
@@ -52,7 +50,7 @@ function PaintingModal(props: {
   }, [images]);
 
   // Стрілки на клавіатурі ← →
-  // indexRef — щоб обробник клавіш завжди бачив актуальний номер фото
+  
   const indexRef = useRef(0);
   indexRef.current = index;
   useEffect(() => {

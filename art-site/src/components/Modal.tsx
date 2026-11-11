@@ -7,9 +7,8 @@ function Modal(props: { onClose: () => void; children: ReactNode; className?: st
   const { t } = useSettings();
   const onClose = props.onClose;
 
-  // useEffect — «зроби щось ПІСЛЯ того, як компонент з'явився на екрані».
+ 
   // Тут: слухаємо клавіатуру (Esc закриває) і забороняємо прокрутку сторінки під попапом.
-  // return () => {...} — «прибирання»: виконується, коли попап зникає.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
