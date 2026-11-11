@@ -25,6 +25,30 @@ function PaintingModal(props: {
     setIndex((i) => (i - 1 + images.length) % images.length);
   }
 
+  
+  const [shown, setShown] = useState(images[0]);
+
+  // Як тільки попап відкрився — завантажуємо всі фото цієї картини наперед
+  useEffect(() => {
+    images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, [images]);
+
+  useEffect(() => {
+    const src = images[index];
+    const img = new Image();
+    img.src = src;
+    let cancelled = false;
+    img.decode().catch(() => {}).then(() => {
+      if (!cancelled) setShown(src);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [index, images]);
+
   // Стрілки на клавіатурі ← →
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -59,7 +83,7 @@ function PaintingModal(props: {
         onTouchStart={(e) => setTouchX(e.touches[0].clientX)}
         onTouchEnd={onTouchEnd}
       >
-        <img className="viewer-image" src={images[index]} alt={p.title} key={images[index]} />
+        <img className="viewer-image" src={shown} alt={p.title} />
 
         {many && (
           <>

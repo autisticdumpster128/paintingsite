@@ -593,3 +593,47 @@
     font-size: 18px;
   }
 }
+
+/* ============ Без ховерів на сенсорних екранах ============ */
+/* (hover: none) = пристрій без миші (телефон, планшет).
+   Там «ховер» спрацьовує після дотику і залипає — тому скасовуємо всі ефекти наведення. */
+@media (hover: none) {
+  .card:hover .card-image {
+    transform: none;
+  }
+
+  .icon-link:hover,
+  .nav-link:hover,
+  .modal-close:hover {
+    opacity: 1;
+  }
+
+  .footer .nav-link:hover {
+    color: var(--muted);
+  }
+
+  .pill:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .pill--light:hover {
+    background: #fff;
+    color: var(--ink);
+  }
+
+  .pill--dark:hover:not(:disabled) {
+    opacity: 1;
+  }
+
+  .currency button:not(.is-active):hover {
+    color: var(--muted);
+  }
+
+  .viewer-arrow:hover {
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  .contact-links a:hover {
+    color: inherit;
+  }
+}
