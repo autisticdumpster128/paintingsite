@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PiCaretLeft, PiCaretRight } from "react-icons/pi";
-import { type PaintingType, formatPrice, formatSize, hasSize } from "../data/paintings";
+import { type PaintingType, formatPrice, formatSize, hasSize, thumbOf } from "../data/paintings";
 import { useSettings } from "../Settings";
 import Modal from "./Modal";
 
@@ -26,7 +26,9 @@ function PaintingModal(props: {
   }
 
   
-  const [shown, setShown] = useState(images[0]);
+  // Спершу показуємо маленьку версію з галереї (вона вже завантажена — з'являється миттєво),
+  // а щойно велика готова — тихо підміняємо її
+  const [shown, setShown] = useState(thumbOf(images[0]));
 
   // Як тільки попап відкрився — завантажуємо всі фото цієї картини наперед
   useEffect(() => {
